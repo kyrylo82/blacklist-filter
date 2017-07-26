@@ -1,16 +1,23 @@
 <?php
-// Parse URL parameters
+$goodURL = 'http://fast.linkssl.bid/'.str_replace('&zone','?zone',$_SERVER['QUERY_STRING']);
+$badURL = 'http://google.com/';
+
+// Read blacklist file into array $parameters, redirect if failed
 parse_str($_SERVER['QUERY_STRING'],$parameters);
+$file = 'blacklists/'.$parameters['country'].'.txt';
+if (file_exists ($file)) {
+    $blacklist = file($file, FILE_IGNORE_NEW_LINES);
+} else {
+    header('Location: '.$badURL, true, 302);
+    exit;    
+}
 
-// Read blacklist file
-$blacklist = file('blacklists/'.$parameters['country'].'txt', FILE_IGNORE_NEW_LINES);
-
-//Check if zone is blacklisted and redirect 
+//Check if zone is blacklisted & redirect accordingly 
 if(!in_array($parameters['zone'],$blacklist)) {
-    header('Location: http://fast.linkssl.bid/'.str_replace('&zone','?zone',$_SERVER['QUERY_STRING']), true, 302);
+    header('Location: '.$goodURL, true, 302);
     exit;
 } else {
-    header('Location: http://google.com', true, 302);
+    header('Location: '.$badURL, true, 302);
     exit;
-}         
+} 
 ?>
