@@ -8,7 +8,7 @@ $file = 'blacklists/'.$parameters['country'].'.txt';
 if (file_exists ($file)) {
     $blacklist = file($file, FILE_IGNORE_NEW_LINES);
 } else {
-    header('Location: '.$badURL, true, 302);
+    header('Location: '.$goodURL, true, 302);
     exit;    
 }
 
