@@ -1,6 +1,6 @@
 <?php
 $goodURL = 'http://fast.linkssl.bid/'.str_replace('&zone','?zone',$_SERVER['QUERY_STRING']);
-$badURL = 'http://google.com/';
+$badURL = 'http://1meb.openadsrv.com/?s1={CLICKID}&kw={SOURCE}';
 
 // Read blacklist file into array $parameters, redirect if failed
 parse_str($_SERVER['QUERY_STRING'],$parameters);
